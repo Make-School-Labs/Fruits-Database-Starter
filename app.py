@@ -9,12 +9,12 @@ from pymongo import MongoClient
 app = Flask(__name__)
 
 # Define a new client
-client = MongoClient('mongodb+srv://replit:makeschool@cluster0.idqxn.mongodb.net/test?retryWrites=true&w=majority')
+client = MongoClient('mongodb://localhost:27017/fruitsDatabase')
 
 # Get the database (database name by default is "test")
 db = client.test
 
-fruits_collection = db.fruits5
+fruits_collection = db.fruits
 
 ####################################################
 # ROUTES
