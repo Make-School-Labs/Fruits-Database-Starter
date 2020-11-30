@@ -8,13 +8,10 @@ from pymongo import MongoClient
 
 app = Flask(__name__)
 
-# Define a new client
-client = MongoClient('mongodb://localhost:27017/fruitsDatabase')
+app.config["MONGO_URI"] = "mongodb://localhost:27017/fruitsDatabase"
+mongo = PyMongo(app)
 
-# Get the database (database name by default is "test")
-db = client.test
-
-fruits_collection = db.fruits
+fruits_collection = mongo.db.fruits
 
 ####################################################
 # ROUTES
