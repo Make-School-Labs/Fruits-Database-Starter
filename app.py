@@ -1,6 +1,6 @@
 from flask import Flask, request, redirect, render_template, url_for
-from flask_pymongo import PyMongo
-from bson.objectid import ObjectId
+from pymongo import MongoClient
+# from bson.objectid import ObjectId
 
 ####################################################
 # SETUP
@@ -8,10 +8,14 @@ from bson.objectid import ObjectId
 
 app = Flask(__name__)
 
-app.config["MONGO_URI"] = "mongodb://localhost:27017/fruitsDatabase"
-mongo = PyMongo(app)
+# Define a new client
+client = MongoClient('mongodb+srv://replit:makeschool@cluster0.idqxn.mongodb.net/test?retryWrites=true&w=majority')
 
-fruits_collection = mongo.db.fruits
+# Get the database (database name by default is "test")
+db = client.test
+
+# Change this to use a different collection!
+fruits_collection = db.fruits5
 
 ####################################################
 # ROUTES
@@ -37,6 +41,7 @@ def show_all_fruits():
 @app.route('/fruits_search')
 def fruits_search():
   """Show all fruits of a certain name in the database."""
+  # TODO: Get the search query from the form
 
   context = {
     # TODO: Get all fruits with the specified name by calling `find()`
@@ -49,7 +54,9 @@ def fruits_search():
 @app.route('/add_fruit', methods=['POST'])
 def add_fruit():
   """Add a new fruit to the database."""
-  # TODO: Return an error message if the fruit doesn't have a name or a price
+  # TODO: Get the name & price from the form
+
+  # TODO: Return an error message if the user didn't enter a name or price
 
   # TODO: Add the fruit (with name and price) to the database using `insert_one()`
 
@@ -60,9 +67,11 @@ def add_fruit():
 @app.route('/update_fruit', methods=['POST'])
 def update_fruit():
   """Update an existing fruit in the database."""
-  # TODO: Return an error message if the fruit doesn't have a name or a price
+  # TODO: Get the name & price from the form
 
-  # TODO: Update the fruit to have the new price using `update_one()`
+  # TODO: Return an error message if the user didn't enter a name or price
+
+  # TODO: Update the fruit with the given name to have the new price using `update_one()`
 
   # TODO: Return a success message
   return "Not Yet Implemented!"
@@ -71,9 +80,11 @@ def update_fruit():
 @app.route('/delete_fruit', methods=['POST'])
 def delete_fruit():
   """Delete an existing fruit from the database."""
-  # TODO: Return an error message if the fruit doesn't have a name
+  # TODO: Get the name from the form
 
-  # TODO: Delete the fruit from the database
+  # TODO: Return an error message if the user didn't enter a name
+
+  # TODO: Delete the fruit with the given name
 
   # TODO: Return a success message
   return "Not Yet Implemented!"
